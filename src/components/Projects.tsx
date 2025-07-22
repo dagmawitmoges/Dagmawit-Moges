@@ -1,17 +1,20 @@
 import React from 'react';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
-
+import image1 from '../assets/image.png';
 const Projects: React.FC = () => {
   const projects = [
     {
-      title: "Healthcare Management System",
-      description: "Comprehensive internal healthcare system streamlining patient management, appointment scheduling, and medical records with real-time analytics.",
-      image: "https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg?auto=compress&cs=tinysrgb&w=600",
-      tech: ["React", "Node.js", "PostgreSQL", "Tailwind CSS"],
-      category: "Healthcare",
-      impact: "Reduced appointment scheduling time by 60% and improved patient satisfaction scores",
+      title: "MY Consulting Website",
+      description:
+        "Professional portfolio website for MY Consulting, an engineering and architectural firm showcasing projects, services, and core expertise.",
+      image:
+         image1,
+      tech: ["Next.js", "Tailwind CSS", "TypeScript", "Vercel"],
+      category: "Engineering & Architecture",
+      impact:
+        "Improved client outreach and brand visibility with a clean, professional online presence.",
       github: "#",
-      demo: "#"
+      demo: "https://my-consulting-portfolio.vercel.app/"
     },
     {
       title: "Modish Co. - Fashion Tech Platform",
