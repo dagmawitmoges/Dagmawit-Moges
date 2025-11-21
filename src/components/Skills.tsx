@@ -7,7 +7,6 @@ import {
   Database, 
   Globe,
   Smartphone,
-  Brain
 } from 'lucide-react';
 
 const Skills: React.FC = () => {
