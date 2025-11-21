@@ -16,12 +16,57 @@ const Contact: React.FC = () => {
     subject: '',
     message: ''
   });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Configure this env variable in your Vite env (.env) when you deploy.
+  // Example: VITE_CONTACT_ENDPOINT=https://formspree.io/f/your_form_id
+  const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // Reset form
+    // If an endpoint is configured (e.g., Formspree), POST the form data there.
+    if (ENDPOINT) {
+      setStatus('sending');
+      setErrorMessage(null);
+
+      const payload = new FormData();
+      payload.append('name', formData.name);
+      payload.append('email', formData.email);
+      payload.append('subject', formData.subject);
+      payload.append('message', formData.message);
+
+      fetch(ENDPOINT, {
+        method: 'POST',
+        body: payload,
+        headers: {
+          // Let Formspree or similar handle the Accept header
+          Accept: 'application/json'
+        }
+      })
+        .then(async (res) => {
+          if (res.ok) {
+            setStatus('success');
+            setFormData({ name: '', email: '', subject: '', message: '' });
+          } else {
+            const text = await res.text();
+            setStatus('error');
+            setErrorMessage(text || 'Failed to send message');
+          }
+        })
+        .catch((err) => {
+          setStatus('error');
+          setErrorMessage(err.message || 'Network error');
+        });
+
+      return;
+    }
+
+    // Fallback: open user's mail client via mailto: (not ideal but works without server)
+    const mailto = `mailto:dagmawitmoges@email.com?subject=${encodeURIComponent(
+      formData.subject || 'New contact'
+    )}&body=${encodeURIComponent(`Name: ${formData.name}\n\n${formData.message}\n\nReply to: ${formData.email}`)}`;
+    window.location.href = mailto;
     setFormData({ name: '', email: '', subject: '', message: '' });
   };
 
@@ -42,7 +87,7 @@ const Contact: React.FC = () => {
     {
       icon: <Phone size={20} />,
       label: "Phone",
-      value: "+251 XXX XXX XXX",
+      value: "+251 904660026",
       href: "tel:+251xxxxxxxxx"
     },
     {
@@ -57,7 +102,7 @@ const Contact: React.FC = () => {
     {
       icon: <Linkedin size={20} />,
       label: "LinkedIn",
-      href: "#",
+      href: "#https://www.linkedin.com/in/dagmawit-moges-ali-8b355b291/",
       color: "hover:text-blue-600"
     },
     {
@@ -79,8 +124,7 @@ const Contact: React.FC = () => {
     "Mobile App Development",
     "Fashion-Tech Solutions",
     "Healthcare Systems",
-    "AI/ML Integration",
-    "UI/UX Design",
+   "UI/UX Design",
     "Technical Consulting",
     "Other"
   ];
@@ -219,7 +263,7 @@ const Contact: React.FC = () => {
 
               <div className="mb-8">
                 <label htmlFor="message" className="block text-sm font-medium text-navy-700 mb-2">
-                  Project Details *
+                  Project Details 
                 </label>
                 <textarea
                   id="message"
@@ -237,14 +281,32 @@ const Contact: React.FC = () => {
                 type="submit"
                 className="w-full bg-navy-900 text-white py-4 rounded-lg font-medium hover:bg-vintage-700 transition-all duration-300 flex items-center justify-center gap-2 group"
               >
-                <Send size={20} />
-                Send Message
-                <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
+                {status === 'sending' ? (
+                  <>
+                    <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                    </svg>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send size={20} />
+                    Send Message
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
+                  </>
+                )}
               </button>
 
               <p className="text-sm text-navy-500 mt-4 text-center">
                 I typically respond within 24 hours. Looking forward to hearing from you!
               </p>
+              {status === 'success' && (
+                <p className="text-sm text-green-600 mt-4 text-center">Thanks — your message has been sent.</p>
+              )}
+              {status === 'error' && (
+                <p className="text-sm text-red-600 mt-4 text-center">Error sending message: {errorMessage}</p>
+              )}
             </form>
           </div>
         </div>

@@ -15,12 +15,12 @@ const Skills: React.FC = () => {
     {
       title: "Frontend Development",
       icon: <Code2 size={24} />,
-      skills: ["React", "Next.js", "Tailwind CSS", "TypeScript", "GSAP", "Framer Motion"]
+      skills: ["React", "Next.js", "Tailwind CSS", "TypeScript",  "Framer Motion"]
     },
     {
       title: "Backend & Database",
       icon: <Server size={24} />,
-      skills: ["Node.js", "Express", "Supabase", "PostgreSQL", "REST APIs", "GraphQL"]
+      skills: ["Node.js", "Express", "Supabase", "PostgreSQL", "REST APIs"]
     },
     {
       title: "Design & UX",
@@ -38,7 +38,6 @@ const Skills: React.FC = () => {
     { icon: <Globe size={20} />, label: "Web Development" },
     { icon: <Smartphone size={20} />, label: "Mobile-First Design" },
     { icon: <Database size={20} />, label: "Database Architecture" },
-    { icon: <Brain size={20} />, label: "AI/ML Integration" }
   ];
 
   return (

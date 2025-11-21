@@ -39,7 +39,7 @@ const About: React.FC = () => {
                   I'm a software engineer who believes that every problem is a business opportunity waiting to be solved beautifully. My passion lies at the intersection of logic and creativity, where clean code meets elegant design.
                 </p>
                 <p>
-                  With a background in software engineering and an eye for timeless style, I specialize in building digital solutions that don't just work—they inspire. From healthcare systems to fashion-tech innovations, I bring both technical expertise and creative vision to every project.
+                  With a background in software engineering and an eye for timeless style, I specialize in building digital solutions that don't just work they inspire. From healthcare systems to fashion-tech innovations, I bring both technical expertise and creative vision to every project.
                 </p>
                 <p>
                   When I'm not coding, you'll find me exploring the future of AI in Ethiopia, advocating for women in tech, or crafting the next breakthrough in fashion technology. I believe in building not just for today, but for the elegant tomorrow we all deserve.

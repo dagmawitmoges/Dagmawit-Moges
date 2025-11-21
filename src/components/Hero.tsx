@@ -29,7 +29,8 @@ const Hero: React.FC = () => {
             </a>
             
             <a
-              href="/cv.pdf"
+              href="https://drive.google.com/file/d/1hyGskS-AUZMWr_JjePPOUH7bZhq2BcmP/view?usp=drive_link"
+              download="Dagmawit_Moges_CV.pdf"
               className="text-navy-700 hover:text-vintage-600 font-medium border border-navy-200 px-8 py-3 rounded-sm hover:border-vintage-300 transition-all duration-300"
             >
               Download CV
